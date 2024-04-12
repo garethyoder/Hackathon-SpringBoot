@@ -2,18 +2,15 @@ package com.coderenovators.tutorial;
 
 import com.coderenovators.tutorial.model.User;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ApplicationTests {
 
@@ -39,14 +36,14 @@ public class ApplicationTests {
 		ResponseEntity<String> response = restTemplate.exchange(getRootUrl() + "/users",
 				HttpMethod.GET, entity, String.class);
 
-		Assert.assertNotNull(response.getBody());
+		Assertions.assertNotNull(response.getBody());
 	}
 
 	@Test
 	public void testGetUserById() {
 		User user = restTemplate.getForObject(getRootUrl() + "/users/1", User.class);
 		System.out.println(user.getFirstName());
-		Assert.assertNotNull(user);
+		Assertions.assertNotNull(user);
 	}
 
 	@Test
@@ -59,8 +56,8 @@ public class ApplicationTests {
 		user.setUpdatedBy("admin");
 
 		ResponseEntity<User> postResponse = restTemplate.postForEntity(getRootUrl() + "/users", user, User.class);
-		Assert.assertNotNull(postResponse);
-		Assert.assertNotNull(postResponse.getBody());
+		Assertions.assertNotNull(postResponse);
+		Assertions.assertNotNull(postResponse.getBody());
 	}
 
 	@Test
@@ -73,21 +70,21 @@ public class ApplicationTests {
 		restTemplate.put(getRootUrl() + "/users/" + id, user);
 
 		User updatedUser = restTemplate.getForObject(getRootUrl() + "/users/" + id, User.class);
-		Assert.assertNotNull(updatedUser);
+		Assertions.assertNotNull(updatedUser);
 	}
 
 	@Test
 	public void testDeletePost() {
 		int id = 2;
 		User user = restTemplate.getForObject(getRootUrl() + "/users/" + id, User.class);
-		Assert.assertNotNull(user);
+		Assertions.assertNotNull(user);
 
 		restTemplate.delete(getRootUrl() + "/users/" + id);
 
 		try {
 			user = restTemplate.getForObject(getRootUrl() + "/users/" + id, User.class);
 		} catch (final HttpClientErrorException e) {
-			Assert.assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND);
+			Assertions.assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND);
 		}
 	}
 

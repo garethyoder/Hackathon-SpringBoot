@@ -1,0 +1,11 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: org.myUser.MyRecipe
+displayName: My custom recipe
+description: Fix all the things.
+recipeList:
+  - org.openrewrite.java.spring.boot2.UpgradeSpringBoot_2_2
+  - org.openrewrite.java.spring.boot2.UpgradeSpringBoot_2_3
+  - org.openrewrite.java.spring.boot2.UpgradeSpringBoot_2_4
+  - org.openrewrite.java.spring.boot2.UpgradeSpringBoot_2_6
+  - org.openrewrite.java.spring.boot2.UpgradeSpringBoot_2_7
+  - org.openrewrite.java.spring.boot2.SpringBoot2BestPractices
